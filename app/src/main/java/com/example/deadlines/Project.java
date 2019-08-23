@@ -11,6 +11,8 @@ public class Project {
     //the data type of the date dependes on the type of data we get from the website
     //for now its string
     private String deadlineDate;
+    private String detailedDescription;
+    private String redirectingUrl;
 
 
     /*
@@ -27,6 +29,14 @@ public class Project {
      */
     public String getProjectTitle() {
         return projectTitle;
+    }
+
+    public String getDetailedDescription() {
+        return detailedDescription;
+    }
+
+    public String getRedirectingUrl() {
+        return redirectingUrl;
     }
 
     public String getSourceWebsite() {
