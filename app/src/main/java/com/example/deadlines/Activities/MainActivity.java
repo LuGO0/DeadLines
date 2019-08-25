@@ -3,6 +3,9 @@ package com.example.deadlines.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -18,12 +21,31 @@ public class MainActivity extends AppCompatActivity {
     //for now well use the dummy data
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.main_activity_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        if(item.getItemId()==R.id.Credits)
+        {
+            Intent intent=new Intent(MainActivity.this,Credits.class);
+            startActivity(intent);
+            return true;
+        }
+        return false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         ArrayList<Project> dummyProjectData=new ArrayList<Project>(5);
         dummyProjectData.add(new Project("Project title 1","ERPC","21st Aug, 2020"));
