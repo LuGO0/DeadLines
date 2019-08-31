@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.example.deadlines.R;
 
-public class Credits extends AppCompatActivity {
+public class CreditsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

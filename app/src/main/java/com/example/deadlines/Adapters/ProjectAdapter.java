@@ -1,4 +1,4 @@
-package com.example.deadlines;
+package com.example.deadlines.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.deadlines.Project;
+import com.example.deadlines.R;
 
 import java.util.ArrayList;
 
