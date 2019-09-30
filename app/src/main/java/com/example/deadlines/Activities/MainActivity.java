@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
     void setupDrawerLayout()
     {
         mDrawerLayout = (DrawerLayout)findViewById(R.id.navigation_drawer);
