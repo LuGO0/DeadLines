@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "813120149425",
+    "firebase_url": "https://deadlines-c130b.firebaseio.com",
+    "project_id": "deadlines-c130b",
+    "storage_bucket": "deadlines-c130b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813120149425:android:dda14a6f37026c5c5e8f90",
+        "android_client_info": {
+          "package_name": "com.example.deadlines"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813120149425-squ2c4g4mevcj0romkr5us5b6ftfkgnd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.deadlines",
+            "certificate_hash": "8387e47beb6248642ade0141043247dfc121097d"
+          }
+        },
+        {
+          "client_id": "813120149425-dme1if0netum497mk0qsotshjbpa3685.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqBnT7DEhHm8-469azvJtyyIlUvRuzcqk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813120149425-dme1if0netum497mk0qsotshjbpa3685.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

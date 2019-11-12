@@ -3,16 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <group android:checkableBehavior="single">
+
+    <group
+        android:id="@+id/group_feature"
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/naigation_item_1"
+            android:id="@+id/profile_item"
             android:checked="true"
-            android:title="ITEM 1" />
+            android:title="PROFILE" />
+
 
         <item
-            android:id="@+id/naigation_item_2"
+            android:id="@+id/schemes_item"
             android:checked="true"
-            android:title="ITEM 2" />
+            android:title="SCHEMES" />
+
+        <item
+            android:id="@+id/scholarship_item"
+            android:checked="true"
+            android:title="SCHOLARSHIP" />
+
+        <item
+            android:id="@+id/research_proposal_item"
+            android:checked="true"
+            android:title="RESEARCH PROPOSAL" />
+
+    </group>
+    <group
+        android:id="@+id/auth_feature"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/signOut_item"
+            android:checked="true"
+            android:title="SIGN OUT" />
+
 
     </group>
 </menu>

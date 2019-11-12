@@ -19,10 +19,11 @@ public class Project {
     /*
      * constructor
      */
-    public Project(String projectTitle, String sourceWebsite, String deadlineDate) {
+    public Project(String projectTitle, String sourceWebsite, String deadlineDate,String redirectingUrl) {
         this.projectTitle = projectTitle;
         this.sourceWebsite = sourceWebsite;
         this.deadlineDate = deadlineDate;
+        this.redirectingUrl=redirectingUrl;
     }
 
     /*
