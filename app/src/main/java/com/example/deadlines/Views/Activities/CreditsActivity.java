@@ -1,15 +1,15 @@
-package com.example.deadlines.Activities;
+package com.example.deadlines.Views.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.deadlines.R;
 
-public class ProfileActivity extends AppCompatActivity {
+public class CreditsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_credits);
     }
 }

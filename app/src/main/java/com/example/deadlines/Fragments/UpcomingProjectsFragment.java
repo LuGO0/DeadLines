@@ -8,16 +8,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.deadlines.Activities.DetailedProjectActivity;
-import com.example.deadlines.Adapters.ProjectAdapter;
-import com.example.deadlines.Project;
+import com.example.deadlines.Views.Activities.DetailedProjectActivity;
+import com.example.deadlines.Views.Adapters.ProjectAdapter;
+import com.example.deadlines.models.ProjectDeadline;
 import com.example.deadlines.R;
 
 import org.jsoup.Jsoup;
@@ -33,16 +32,16 @@ import java.util.concurrent.ExecutionException;
 public class UpcomingProjectsFragment extends Fragment {
 
     //Data Scraping
-    public class getWebText extends AsyncTask<Void,Void,ArrayList<Project>>
+    public class getWebText extends AsyncTask<Void,Void,ArrayList<ProjectDeadline>>
     {
 
         String words;
         ArrayList<String> newData = new ArrayList<>();
-        ArrayList<Project> dummyProjectData=new ArrayList<Project>(5);
+        ArrayList<ProjectDeadline> dummyProjectDeadlineData =new ArrayList<ProjectDeadline>(5);
 
 
         @Override
-        protected ArrayList<Project> doInBackground(Void... strings) {
+        protected ArrayList<ProjectDeadline> doInBackground(Void... strings) {
 
 
             try {
@@ -76,7 +75,7 @@ public class UpcomingProjectsFragment extends Fragment {
 
                     if ((Integer.parseInt(dateString.substring(3, 5)) > 11)) {
                         //Log.i("info", "data check 1" + links.attr("href"));
-                        dummyProjectData.add(new Project(cols.get(0).text(), "DST GOV/EPMS", cols.get(3).text(),"https://dst.gov.in"+links.attr("href")));
+                        dummyProjectDeadlineData.add(new ProjectDeadline(cols.get(0).text(), "DST GOV/EPMS", cols.get(3).text(),"https://dst.gov.in"+links.attr("href")));
                     }
                 }
                 words=doc.text();
@@ -105,7 +104,7 @@ public class UpcomingProjectsFragment extends Fragment {
             //Adding elements to project array list
 
 
-            return dummyProjectData;
+            return dummyProjectDeadlineData;
         }
 
        /* @Override
@@ -117,13 +116,13 @@ public class UpcomingProjectsFragment extends Fragment {
         }*/
     }
 
-    public class getWebText1 extends AsyncTask<Void,Void,ArrayList<Project>> {
+    public class getWebText1 extends AsyncTask<Void,Void,ArrayList<ProjectDeadline>> {
         String words;
         ArrayList<String> newData = new ArrayList<>();
-        ArrayList<Project> dummyProjectData = new ArrayList<Project>(5);
+        ArrayList<ProjectDeadline> dummyProjectDeadlineData = new ArrayList<ProjectDeadline>(5);
 
         @Override
-        protected ArrayList<Project> doInBackground(Void... voids) {
+        protected ArrayList<ProjectDeadline> doInBackground(Void... voids) {
 
             try {
 
@@ -155,13 +154,13 @@ public class UpcomingProjectsFragment extends Fragment {
                     int year=Integer.parseInt(dateString.substring(6,10));
                     if(year>2019)
                     {
-                        dummyProjectData.add(new Project(cols.get(1).text(), "DBT", dateString,links.attr("href")));
+                        dummyProjectDeadlineData.add(new ProjectDeadline(cols.get(1).text(), "DBT", dateString,links.attr("href")));
                     }
 
 
                     else if ((Integer.parseInt(dateString.substring(3,5))>11))
                     {
-                        dummyProjectData.add(new Project(cols.get(1).text(), "DBT", dateString,links.attr("href")));
+                        dummyProjectDeadlineData.add(new ProjectDeadline(cols.get(1).text(), "DBT", dateString,links.attr("href")));
                     }
                 }
 
@@ -189,7 +188,7 @@ public class UpcomingProjectsFragment extends Fragment {
             //Adding elements to project array list
 
 
-            return dummyProjectData;
+            return dummyProjectDeadlineData;
         }
     }
     @Override
@@ -205,8 +204,8 @@ public class UpcomingProjectsFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_current_projects, container, false);
 
         //dummy data for now
-        ArrayList<Project> dummyProjectData=new ArrayList<Project>();
-        ArrayList<Project> extra=new ArrayList<Project>();
+        ArrayList<ProjectDeadline> dummyProjectDeadlineData =new ArrayList<ProjectDeadline>();
+        ArrayList<ProjectDeadline> extra=new ArrayList<ProjectDeadline>();
         /*dummyProjectData.add(new Project("Project title 1","ERPC","21st Aug, 2020"));
         dummyProjectData.add(new Project("Project title 2","IISC","21st Aug, 2021"));
         dummyProjectData.add(new Project("Project title 3","AICTE","21st Aug, 2021"));
@@ -219,11 +218,11 @@ public class UpcomingProjectsFragment extends Fragment {
          */
 
         try {
-            dummyProjectData=new getWebText().execute().get();
+            dummyProjectDeadlineData =new getWebText().execute().get();
             extra=new getWebText1().execute().get();
             for(int i=0;i<extra.size();i++)
             {
-                dummyProjectData.add(extra.get(i));
+                dummyProjectDeadlineData.add(extra.get(i));
             }
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -235,7 +234,7 @@ public class UpcomingProjectsFragment extends Fragment {
 
         final ListView projectListView = (ListView) view.findViewById(R.id.list);
 
-        final ProjectAdapter adapter=new ProjectAdapter(getActivity(),dummyProjectData);
+        final ProjectAdapter adapter=new ProjectAdapter(getActivity(), dummyProjectDeadlineData);
 
         projectListView.setAdapter(adapter);
 
@@ -244,10 +243,10 @@ public class UpcomingProjectsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                final Project currentProject=adapter.getItem(i);
+                final ProjectDeadline currentProjectDeadline =adapter.getItem(i);
 
 
-                if (currentProject.getSourceWebsite().equalsIgnoreCase("DBT"))
+                if (currentProjectDeadline.getSourceWebsite().equalsIgnoreCase("DBT"))
                 {
 
                     AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
@@ -257,7 +256,7 @@ public class UpcomingProjectsFragment extends Fragment {
                             Intent viewIntent=new Intent(getActivity(), DetailedProjectActivity.class);
                             viewIntent =
                                     new Intent("android.intent.action.VIEW",
-                                            Uri.parse(currentProject.getRedirectingUrl()));
+                                            Uri.parse(currentProjectDeadline.getRedirectingUrl()));
                             startActivity(viewIntent);
                         }
                     }).setNegativeButton("No",null);
@@ -274,7 +273,7 @@ public class UpcomingProjectsFragment extends Fragment {
                             Intent viewIntent=new Intent(getActivity(), DetailedProjectActivity.class);
                             viewIntent =
                                     new Intent("android.intent.action.VIEW",
-                                            Uri.parse(currentProject.getRedirectingUrl()));
+                                            Uri.parse(currentProjectDeadline.getRedirectingUrl()));
                             startActivity(viewIntent);
                         }
                     }).setNegativeButton("No",null);
