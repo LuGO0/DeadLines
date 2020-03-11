@@ -1,25 +1,17 @@
-package com.example.deadlines;
+package com.example.deadlines.models;
 
-public class Project {
+import androidx.room.Entity;
 
+@Entity
+public class ProjectDeadline {
 
-    /*
-     * private variables
-     */
     private String projectTitle;
     private String sourceWebsite;
-
-    //the data type of the date dependes on the type of data we get from the website
-    //for now its string
     private String deadlineDate;
-    private String detailedDescription;
     private String redirectingUrl;
 
 
-    /*
-     * constructor
-     */
-    public Project(String projectTitle, String sourceWebsite, String deadlineDate,String redirectingUrl) {
+    public ProjectDeadline(String projectTitle, String sourceWebsite, String deadlineDate, String redirectingUrl) {
         this.projectTitle = projectTitle;
         this.sourceWebsite = sourceWebsite;
         this.deadlineDate = deadlineDate;
@@ -31,10 +23,6 @@ public class Project {
      */
     public String getProjectTitle() {
         return projectTitle;
-    }
-
-    public String getDetailedDescription() {
-        return detailedDescription;
     }
 
     public String getRedirectingUrl() {

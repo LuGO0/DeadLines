@@ -1,6 +1,5 @@
-package com.example.deadlines.Activities;
+package com.example.deadlines.Views.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
@@ -12,27 +11,22 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
 
-import com.example.deadlines.Adapters.ProjectListFragmentPagerAdapter;
+import com.example.deadlines.Views.Adapters.ProjectListFragmentPagerAdapter;
 import com.example.deadlines.R;
 
 import java.util.Arrays;
@@ -45,9 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView mNavigationView;
     private ActionBar mActionBar;
     private static final String TAG = "MainActivity";
-
     public static final String ANONYMOUS = "anonymous";
-
     public static final int RC_SIGN_IN = 1;
 
 
@@ -249,15 +241,27 @@ public class MainActivity extends AppCompatActivity {
                 int id = item.getItemId();
                 switch(id)
                 {
+
                     case R.id.schemes_item:
-                        Toast.makeText(MainActivity.this, "SCHEMES",Toast.LENGTH_SHORT).show();break;
+                        Toast.makeText(MainActivity.this, "SCHEMES",Toast.LENGTH_SHORT).show();
+                        break;
+
                     case R.id.scholarship_item:
-                        Toast.makeText(MainActivity.this, "SCHOLARSHIP",Toast.LENGTH_SHORT).show();break;
+                        Toast.makeText(MainActivity.this, "SCHOLARSHIP",Toast.LENGTH_SHORT).show();
+                        break;
+
                     case R.id.research_proposal_item:
-                        Toast.makeText(MainActivity.this, "RESEARCH PROPOSALS",Toast.LENGTH_SHORT).show();break;
+                        Toast.makeText(MainActivity.this, "RESEARCH PROPOSALS",Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case R.id.profile_item:
+                        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        startActivity(intent);
+                        break;
 
                     case R.id.signOut_item:
                         AuthUI.getInstance().signOut(MainActivity.this);break;
+
                     default:
                         return true;
                 }

@@ -1,22 +1,21 @@
-package com.example.deadlines.Adapters;
+package com.example.deadlines.Views.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.deadlines.Project;
+import com.example.deadlines.models.ProjectDeadline;
 import com.example.deadlines.R;
 
 import java.util.ArrayList;
 
-public class ProjectAdapter extends ArrayAdapter<Project> {
+public class ProjectAdapter extends ArrayAdapter<ProjectDeadline> {
 
-    public ProjectAdapter(Context context, ArrayList<Project> dummyProjectData) {
-        super(context, 0, dummyProjectData);
+    public ProjectAdapter(Context context, ArrayList<ProjectDeadline> dummyProjectDeadlineData) {
+        super(context, 0, dummyProjectDeadlineData);
 
     }
 
@@ -31,12 +30,12 @@ public class ProjectAdapter extends ArrayAdapter<Project> {
 
         //get item is an inbuilt class which will extract the required info from the
         //arraylist at the required position
-        Project currentProject = getItem(position);
+        ProjectDeadline currentProjectDeadline = getItem(position);
 
         //extract attributes from the position attribute
-        String sourceWebsite = currentProject.getSourceWebsite();
-        String projectTitle = currentProject.getProjectTitle();
-        String deadlineDate = currentProject.getDeadlineDate();
+        String sourceWebsite = currentProjectDeadline.getSourceWebsite();
+        String projectTitle = currentProjectDeadline.getProjectTitle();
+        String deadlineDate = currentProjectDeadline.getDeadlineDate();
 
         TextView sourceWebsiteView = (TextView) listItemView.findViewById(R.id.source_website);
         sourceWebsiteView.setText(sourceWebsite);
