@@ -8,12 +8,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.deadlines.Utils.Utils;
 import com.example.deadlines.Views.Activities.DetailedProjectActivity;
 import com.example.deadlines.Views.Adapters.ProjectAdapter;
 import com.example.deadlines.models.ProjectDeadline;
@@ -25,6 +27,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -68,7 +71,7 @@ public class UpcomingProjectsFragment extends Fragment {
 
 
                     String dateString = cols.get(3).text();
-
+                    Log.i("yp",Utils.getDatefromString(dateString).toString());
                     int year=Integer.parseInt(dateString.substring(6,10));
                     if(year>2019)
                         continue;
@@ -99,6 +102,8 @@ public class UpcomingProjectsFragment extends Fragment {
                 e.printStackTrace();
                 //Log.i("info","sdfghgfhjhgh"+words);
 
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
 
             //Adding elements to project array list
@@ -151,6 +156,7 @@ public class UpcomingProjectsFragment extends Fragment {
 
                     //Log.i("info", "data check 1" + cols.get(2).text());
                     String dateString=cols.get(2).text().split(" ")[2];
+                    Log.i("yp", Utils.getDatefromString(dateString).toString());
                     int year=Integer.parseInt(dateString.substring(6,10));
                     if(year>2019)
                     {
@@ -183,6 +189,8 @@ public class UpcomingProjectsFragment extends Fragment {
                 e.printStackTrace();
                 //Log.i("info","sdfghgfhjhgh"+words);
 
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
 
             //Adding elements to project array list
