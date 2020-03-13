@@ -59,8 +59,9 @@ public class CurrentProjectsFragment extends Fragment {
                     Elements links=cols.select("a");
 
                     String dateString = cols.get(3).text();
-                    Log.i("yp",Utils.getDatefromString(dateString).toString());
-                    int year = Integer.parseInt(dateString.substring(6, 10));
+                    Log.i("yp",Utils.getDatefromString(dateString).toString());                    int year = Integer.parseInt(dateString.substring(6, 10));
+                    if (year > 2019)
+                        continue;
 
                     deadlinesViewModel.insert(new ProjectDeadline(cols.get(0).text(), "DST GOV/EPMS", cols.get(3).text(),"https://dst.gov.in"+links.attr("href")));
                 }

@@ -14,8 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.deadlines.Utils.Utils;
-import com.example.deadlines.Views.Adapters.ProjectDeadlineAdapter;
-import com.example.deadlines.Views.ViewModels.DeadlinesViewModel;
+import com.example.deadlines.Views.Activities.DetailedProjectActivity;
+import com.example.deadlines.Views.Adapters.ProjectAdapter;
 import com.example.deadlines.models.ProjectDeadline;
 import com.example.deadlines.R;
 
@@ -73,6 +73,8 @@ public class UpcomingProjectsFragment extends Fragment {
 
             } catch (IOException e) {
                 e.printStackTrace();
+                //Log.i("info","sdfghgfhjhgh"+words);
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
