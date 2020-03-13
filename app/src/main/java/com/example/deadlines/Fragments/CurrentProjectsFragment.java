@@ -27,6 +27,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
@@ -57,8 +58,9 @@ public class CurrentProjectsFragment extends Fragment {
                     Element row = rows.get(i);
                     Elements cols = row.select("td");
                     Elements links=cols.select("a");
+
                     String dateString = cols.get(3).text();
-                    int year = Integer.parseInt(dateString.substring(6, 10));
+                    Log.i("yp",Utils.getDatefromString(dateString).toString());                    int year = Integer.parseInt(dateString.substring(6, 10));
                     if (year > 2019)
                         continue;
 
@@ -74,6 +76,8 @@ public class CurrentProjectsFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
 
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
 
             return dummyProjectDeadlineData;
@@ -102,6 +106,8 @@ public class CurrentProjectsFragment extends Fragment {
                     Elements cols = row.select("td");
                     Elements links=cols.select("a");
                     String dateString = cols.get(2).text().split(" ")[2];
+                    Log.i("yp",Utils.getDatefromString(dateString).toString());
+
                     int year = Integer.parseInt(dateString.substring(6, 10));
 
                     if (year > 2019)
@@ -116,8 +122,10 @@ public class CurrentProjectsFragment extends Fragment {
 
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-             return dummyProjectDeadlineData;
+            return dummyProjectDeadlineData;
         }
     }
 
