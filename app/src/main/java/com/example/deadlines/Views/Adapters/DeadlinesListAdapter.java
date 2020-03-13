@@ -12,9 +12,9 @@ import com.example.deadlines.R;
 
 import java.util.ArrayList;
 
-public class ProjectAdapter extends ArrayAdapter<ProjectDeadline> {
+public class DeadlinesListAdapter extends ArrayAdapter<ProjectDeadline> {
 
-    public ProjectAdapter(Context context, ArrayList<ProjectDeadline> dummyProjectDeadlineData) {
+    public DeadlinesListAdapter(Context context, ArrayList<ProjectDeadline> dummyProjectDeadlineData) {
         super(context, 0, dummyProjectDeadlineData);
 
     }

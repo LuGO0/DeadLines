@@ -1,13 +1,24 @@
 package com.example.deadlines.models;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "deadlines_table")
 public class ProjectDeadline {
 
+    @ColumnInfo
     private String projectTitle;
+
+    @ColumnInfo
     private String sourceWebsite;
+
+    @ColumnInfo
     private String deadlineDate;
+
+    @PrimaryKey
+    @NonNull
     private String redirectingUrl;
 
 
@@ -36,4 +47,25 @@ public class ProjectDeadline {
     public String getDeadlineDate() {
         return deadlineDate;
     }
+
+    /*
+     * setter methods
+     */
+    public void setProjectTitle(String projectTitle) {
+        this.projectTitle = projectTitle;
+    }
+
+    public void setSourceWebsite(String sourceWebsite) {
+        this.sourceWebsite = sourceWebsite;
+    }
+
+    public void setDeadlineDate(String deadlineDate) {
+        this.deadlineDate = deadlineDate;
+    }
+
+    public void setRedirectingUrl(@NonNull String redirectingUrl) {
+        this.redirectingUrl = redirectingUrl;
+    }
+
+
 }
