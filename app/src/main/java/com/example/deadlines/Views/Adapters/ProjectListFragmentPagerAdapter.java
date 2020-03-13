@@ -18,8 +18,6 @@ public class ProjectListFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
-        //here will be a switch statement which will cook the fragments we will display
         switch (position) {
             case 0:
                 return new CurrentProjectsFragment();
