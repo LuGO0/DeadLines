@@ -1,12 +1,15 @@
 package com.example.deadlines.Utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.SimpleTimeZone;
 
 public class Utils {
 
-    Date getDatefromString(String date){
+    public static Date getDatefromString(String date) throws ParseException {
 
-        Date resultantDate=new Date();
+        Date resultantDate=new SimpleDateFormat("dd/MM/yyyy").parse(date);
 
         return resultantDate;
     }
