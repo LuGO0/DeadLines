@@ -17,7 +17,7 @@ import android.widget.ListView;
 
 import com.example.deadlines.Utils.Utils;
 import com.example.deadlines.Views.Activities.DetailedProjectActivity;
-import com.example.deadlines.Views.Adapters.ProjectAdapter;
+import com.example.deadlines.Views.Adapters.DeadlinesListAdapter;
 import com.example.deadlines.models.ProjectDeadline;
 import com.example.deadlines.R;
 
@@ -29,7 +29,6 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 public class CurrentProjectsFragment extends Fragment {
@@ -173,7 +172,7 @@ public class CurrentProjectsFragment extends Fragment {
 
         final ListView projectListView = (ListView) view.findViewById(R.id.list);
         Log.i("dataIfLoaded", projectDeadlineData.toString());
-        final ProjectAdapter adapter=new ProjectAdapter(getActivity(), projectDeadlineData);
+        final DeadlinesListAdapter adapter=new DeadlinesListAdapter(getActivity(), projectDeadlineData);
 
         projectListView.setAdapter(adapter);
 

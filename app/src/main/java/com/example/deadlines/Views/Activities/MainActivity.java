@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         mActionBar=getSupportActionBar();
+
         //navigation drawer setup
         setupDrawerLayout();
 
@@ -133,11 +134,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void onSignedInInitialize(String username) {
         mUsername = username;
-
-
-
-
-       // Log.i(mUsername,"helllo");
         mFirebaseUser=FirebaseAuth.getInstance().getCurrentUser();
 //        if(mFirebaseUser.isEmailVerified())
 //        {
