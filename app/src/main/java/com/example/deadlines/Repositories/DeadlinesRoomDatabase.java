@@ -63,10 +63,10 @@ public abstract class DeadlinesRoomDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(final Void... params) {
             //if no words then initialize
-            if(mDao.getAnyDeadline().length<1) {
-                //do nothing maybe just go up with a toast but do nothing
-                //toast saying that the database is empty!!
-            }
+//            if(mDao.getAnyDeadline().length<1) {
+//                //do nothing maybe just go up with a toast but do nothing
+//                //toast saying that the database is empty!!
+//            }
             return null;
         }
     }

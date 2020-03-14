@@ -23,7 +23,7 @@ public class DeadlinesViewModel extends AndroidViewModel {
     }
 
     //get all the words
-    LiveData<List<ProjectDeadline>> get() { return mAllDeadlines; }
+    public LiveData<List<ProjectDeadline>> get() { return mAllDeadlines; }
 
     // creting a wrapper insert method which calls the repositories insert method
     // thus hiding the insert logic from the UI
@@ -34,8 +34,7 @@ public class DeadlinesViewModel extends AndroidViewModel {
     //delAll
     public void deleteAll() {mRepository.deleteAll();}
 
-    //del a single word
-    public void deleteWord(ProjectDeadline deadline) {mRepository.deleteWord(deadline);}
+
 
 
 }
