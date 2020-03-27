@@ -1,4 +1,7 @@
 # DeadLines
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/155a926c924b48cc8660bc4ccedd679d)](https://app.codacy.com/manual/saurabhofficial/DeadLines?utm_source=github.com&utm_medium=referral&utm_content=LuGO0/DeadLines&utm_campaign=Badge_Grade_Dashboard)
+
 ## Operating System Course Project
 
 An Android app used for displaying cumulative information (Deadlines) about various funded projects primarily by the Indian Government
