@@ -1,27 +1,20 @@
 package com.example.deadlines.Fragments;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.example.deadlines.Utils.Utils;
-import com.example.deadlines.Views.Activities.DetailedProjectActivity;
-import com.example.deadlines.Views.Adapters.DeadlinesListAdapter;
 import com.example.deadlines.Views.Adapters.ProjectDeadlineAdapter;
 import com.example.deadlines.Views.ViewModels.DeadlinesViewModel;
 import com.example.deadlines.models.ProjectDeadline;
@@ -44,7 +37,6 @@ public class CurrentProjectsFragment extends Fragment {
 
     //Data Scraping
     public class getWebText extends AsyncTask<Void, Void, ArrayList<ProjectDeadline>> {
-
         String words;
         ArrayList<String> newData = new ArrayList<>();
         ArrayList<ProjectDeadline> dummyProjectDeadlineData = new ArrayList<ProjectDeadline>();
@@ -71,14 +63,6 @@ public class CurrentProjectsFragment extends Fragment {
                     int year = Integer.parseInt(dateString.substring(6, 10));
 
                     deadlinesViewModel.insert(new ProjectDeadline(cols.get(0).text(), "DST GOV/EPMS", cols.get(3).text(),"https://dst.gov.in"+links.attr("href")));
-//                    if (year > 2019)
-//                        continue;
-//
-//                    if ((Integer.parseInt(dateString.substring(3, 5)) <= 11)) {
-//                        //Log.i("info", "data check 1" + cols.get(3).text());
-//                        dummyProjectDeadlineData.add(new ProjectDeadline(cols.get(0).text(), "DST GOV/EPMS", cols.get(3).text(),"https://dst.gov.in"+links.attr("href")));
-//
-//                    }
                 }
 
                 words = doc.text();
@@ -121,12 +105,6 @@ public class CurrentProjectsFragment extends Fragment {
                     int year = Integer.parseInt(dateString.substring(6, 10));
                     deadlinesViewModel.insert(new ProjectDeadline(cols.get(1).text(), "DBT", dateString,links.attr("href")));
 
-//                    if (year > 2019)
-//                        continue;
-//                    if ((Integer.parseInt(dateString.substring(3, 5)) <= 11)) {
-//                        dummyProjectDeadlineData.add(new ProjectDeadline(cols.get(1).text(), "DBT", dateString,links.attr("href")));
-//                        Log.i("URL", dummyProjectDeadlineData.toString());
-//                    }
                 }
 
                 words = doc.text();
@@ -157,15 +135,7 @@ public class CurrentProjectsFragment extends Fragment {
         deadlinesViewModel= ViewModelProviders.of(this).get(DeadlinesViewModel.class);
         //dummy data for now
         ArrayList<ProjectDeadline> projectDeadlineData =new ArrayList<ProjectDeadline>();
-        ArrayList<ProjectDeadline> extra=new ArrayList<ProjectDeadline>();
-        /*dummyProjectData.add(new Project("Project title 1","ERPC","21st Aug, 2020"));
-        dummyProjectData.add(new Project("Project title 2","IISC","21st Aug, 2021"));
-        dummyProjectData.add(new Project("Project title 3","AICTE","21st Aug, 2021"));
-        dummyProjectData.add(new Project("Project title 4","NZCD","21st Aug, 2022"));
-        dummyProjectData.add(new Project("Project title 5","ERPC","21st Aug, 2023"));
-        dummyProjectData.add(new Project("Project title 6","UGC","21st Aug, 2025"));
-        dummyProjectData.add(new Project("Project title 7","AICTE","21st Aug, 2026"));
-        dummyProjectData.add(new Project("Project title 8","NZEC","21st Aug, 2027"));*/
+        ArrayList<ProjectDeadline> extra;
 
         try {
             projectDeadlineData =new getWebText().execute().get();
@@ -183,9 +153,11 @@ public class CurrentProjectsFragment extends Fragment {
 
         final RecyclerView projectListView = (RecyclerView) view.findViewById(R.id.list);
 
-        final ProjectDeadlineAdapter adapter=new ProjectDeadlineAdapter();
+        final ProjectDeadlineAdapter adapter=new ProjectDeadlineAdapter(projectDeadlineData);
 
         projectListView.setAdapter(adapter);
+        projectListView.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
         deadlinesViewModel.get().observe(this, new Observer<List<ProjectDeadline>>() {
             @Override

@@ -1,6 +1,5 @@
 package com.example.deadlines.Views.Adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectDeadlineAdapter extends RecyclerView.Adapter<ProjectDeadlineAdapter.ProjectDeadlineHolder> {
-    private List<ProjectDeadline> deadlines = new ArrayList<>();
+    private List<ProjectDeadline> mDeadlines = new ArrayList<>();
     private onItemClickListener listener;
+
+    public ProjectDeadlineAdapter(List<ProjectDeadline> deadlines){
+        mDeadlines=deadlines;
+    }
 
     @NonNull
     @Override
@@ -33,7 +36,7 @@ public class ProjectDeadlineAdapter extends RecyclerView.Adapter<ProjectDeadline
     @Override
     public void onBindViewHolder(@NonNull ProjectDeadlineHolder holder, int position) {
 
-        ProjectDeadline currentNote = deadlines.get(position);
+        ProjectDeadline currentNote = mDeadlines.get(position);
 
         holder.sourceWebsiteView.setText(currentNote.getSourceWebsite());
         holder.deadlineTitleView.setText(String.valueOf(currentNote.getProjectTitle()));
@@ -42,16 +45,16 @@ public class ProjectDeadlineAdapter extends RecyclerView.Adapter<ProjectDeadline
     }
 
     public ProjectDeadline getNoteAt(int position) {
-        return deadlines.get(position);
+        return mDeadlines.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return deadlines.size();
+        return mDeadlines.size();
     }
 
     public void setNotes(List<ProjectDeadline> notes) {
-        this.deadlines = notes;
+        this.mDeadlines = notes;
         notifyDataSetChanged();
     }
 
@@ -75,7 +78,7 @@ public class ProjectDeadlineAdapter extends RecyclerView.Adapter<ProjectDeadline
                     int position=getAdapterPosition();
                     if(listener!=null && position!=RecyclerView.NO_POSITION)
                     {
-                        listener.onItemClick(deadlines.get(position));
+                        listener.onItemClick(mDeadlines.get(position));
                     }
                 }
             });

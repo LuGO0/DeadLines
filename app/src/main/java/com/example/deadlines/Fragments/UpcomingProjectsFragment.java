@@ -1,28 +1,19 @@
 package com.example.deadlines.Fragments;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.location.LocationManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
-import com.example.deadlines.Repositories.DeadlinesDao;
 import com.example.deadlines.Utils.Utils;
-import com.example.deadlines.Views.Activities.DetailedProjectActivity;
-import com.example.deadlines.Views.Adapters.DeadlinesListAdapter;
 import com.example.deadlines.Views.Adapters.ProjectDeadlineAdapter;
 import com.example.deadlines.Views.ViewModels.DeadlinesViewModel;
 import com.example.deadlines.models.ProjectDeadline;
@@ -64,21 +55,12 @@ public class UpcomingProjectsFragment extends Fragment {
                 Element table = doc.select("table").get(0); //select the first table.
                 Elements rows = table.select("tr");
 
-                for (int i = 1; i < rows.size(); i++) { //first row is the col names so skip it.
+                for (int i = 1; i < rows.size(); i++) {
+                    //first row is the col names so skip it.
                     Element row = rows.get(i);
 
                     Elements cols = row.select("td");
                     Elements links=cols.select("a");
-
-
-                   /* for (Element p : cols)
-                    {
-
-                   s+=p.text()+'\n';
-                    }
-                    newData.add(s);
-                    s="";*/
-
 
                     String dateString = cols.get(3).text();
                     Log.i("yp",Utils.getDatefromString(dateString).toString());
@@ -86,52 +68,17 @@ public class UpcomingProjectsFragment extends Fragment {
 
                     deadlinesViewModel.insert(new ProjectDeadline(cols.get(0).text(), "DST GOV/EPMS", cols.get(3).text(),"https://dst.gov.in"+links.attr("href")));
 
-//                    if(year>2019)
-//                        continue;
-//
-//                    if ((Integer.parseInt(dateString.substring(3, 5)) > 11)) {
-//                        //Log.i("info", "data check 1" + links.attr("href"));
-//                        dummyProjectDeadlineData.add(new ProjectDeadline(cols.get(0).text(), "DST GOV/EPMS", cols.get(3).text(),"https://dst.gov.in"+links.attr("href")));
-//                    }
                 }
                 words=doc.text();
-                //Log.i("info","sdfghgfhjhgh"+words);
-
-
-
-               /* Handler handler =  new Handler(CurrentProjectsFragment.this.getMainLooper());
-                handler.post( new Runnable(){
-                    public void run(){
-                        //Toast.makeText(MainActivity.this, "Hello", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(CurrentProjectsFragment.this,"mnbvcx",Toast.LENGTH_LONG).show();
-
-                    }
-                });*/
-
-
-
 
             } catch (IOException e) {
                 e.printStackTrace();
-                //Log.i("info","sdfghgfhjhgh"+words);
-
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
-            //Adding elements to project array list
-
-
             return dummyProjectDeadlineData;
         }
-
-       /* @Override
-        protected void onPostExecute(ArrayList<String> s) {
-            super.onPostExecute(s);
-
-            //textView.setText(s.toString());
-
-        }*/
     }
 
     public class getWebText1 extends AsyncTask<Void,Void,ArrayList<ProjectDeadline>> {
@@ -147,72 +94,30 @@ public class UpcomingProjectsFragment extends Fragment {
                 String s = "";
                 Document doc = Jsoup.connect("http://dbtindia.gov.in/whats-new/call-for-proposals").get();
                 Element table = doc.select("table").get(0); //select the first table.
-                //Log.i("Table",table.toString());
                 Elements rows = table.select("tr");
-
-                //Log.i("rows",rows.toString());
 
                 for (int i = 1; i < rows.size(); i++) { //first row is the col names so skip it.
                     Element row = rows.get(i);
 
                     Elements cols = row.select("td");
                     Elements links=cols.select("a");
-                    //Log.i("cols",cols.toString());
-                   /* for (Element p : cols)
-                    {
 
-                   s+=p.text()+'\n';
-                    }
-                    newData.add(s);
-                    s="";*/
-
-
-                    //Log.i("info", "data check 1" + cols.get(2).text());
                     String dateString=cols.get(2).text().split(" ")[2];
                     Log.i("yp", Utils.getDatefromString(dateString).toString());
                     int year=Integer.parseInt(dateString.substring(6,10));
-//                    if(year>2019)
-//                    {
-//                        dummyProjectDeadlineData.add(new ProjectDeadline(cols.get(1).text(), "DBT", dateString,links.attr("href")));
-//                    }
-//
-//
-//                    else if ((Integer.parseInt(dateString.substring(3,5))>11))
-//                    {
-//                        dummyProjectDeadlineData.add(new ProjectDeadline(cols.get(1).text(), "DBT", dateString,links.attr("href")));
-//                    }
-
                     deadlinesViewModel.insert(new ProjectDeadline(cols.get(1).text(), "DBT", dateString,links.attr("href")));
 
                 }
 
                 words = doc.text();
-                //Log.i("info", "sdfghgfhjhgh" + words);
-
-
-
-               /* Handler handler =  new Handler(CurrentProjectsFragment.this.getMainLooper());
-                handler.post( new Runnable(){
-                    public void run(){
-                        //Toast.makeText(MainActivity.this, "Hello", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(CurrentProjectsFragment.this,"mnbvcx",Toast.LENGTH_LONG).show();
-
-                    }
-                });*/
-
 
             } catch (IOException e) {
                 e.printStackTrace();
-                //Log.i("info","sdfghgfhjhgh"+words);
 
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
-            //Adding elements to project array list
-
-
-            return dummyProjectDeadlineData;
+              return dummyProjectDeadlineData;
         }
     }
     @Override
@@ -231,23 +136,13 @@ public class UpcomingProjectsFragment extends Fragment {
         //dummy data for now
         ArrayList<ProjectDeadline> dummyProjectDeadlineData =new ArrayList<ProjectDeadline>();
         ArrayList<ProjectDeadline> extra=new ArrayList<ProjectDeadline>();
-        /*dummyProjectData.add(new Project("Project title 1","ERPC","21st Aug, 2020"));
-        dummyProjectData.add(new Project("Project title 2","IISC","21st Aug, 2021"));
-        dummyProjectData.add(new Project("Project title 3","AICTE","21st Aug, 2021"));
-        dummyProjectData.add(new Project("Project title 4","NZCD","21st Aug, 2022"));
-        dummyProjectData.add(new Project("Project title 5","ERPC","21st Aug, 2023"));
-        dummyProjectData.add(new Project("Project title 6","UGC","21st Aug, 2025"));
-        dummyProjectData.add(new Project("Project title 7","AICTE","21st Aug, 2026"));
-        dummyProjectData.add(new Project("Project title 8","NZEC","21st Aug, 2027"));
-
-         */
-
         try {
             dummyProjectDeadlineData =new getWebText().execute().get();
             extra=new getWebText1().execute().get();
             for(int i=0;i<extra.size();i++)
             {
                 dummyProjectDeadlineData.add(extra.get(i));
+                Log.i("hey",dummyProjectDeadlineData.get(i).getProjectTitle());
             }
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -259,9 +154,10 @@ public class UpcomingProjectsFragment extends Fragment {
 
         final RecyclerView projectListView = (RecyclerView) view.findViewById(R.id.list);
 
-        final ProjectDeadlineAdapter adapter=new ProjectDeadlineAdapter();
+        final ProjectDeadlineAdapter adapter=new ProjectDeadlineAdapter(dummyProjectDeadlineData);
 
         projectListView.setAdapter(adapter);
+        projectListView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         deadlinesViewModel.get().observe(this, new Observer<List<ProjectDeadline>>() {
             @Override
