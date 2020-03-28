@@ -1,6 +1,6 @@
 # DeadLines
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/155a926c924b48cc8660bc4ccedd679d)](https://app.codacy.com/manual/saurabhofficial/DeadLines?utm_source=github.com&utm_medium=referral&utm_content=LuGO0/DeadLines&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/155a926c924b48cc8660bc4ccedd679d)](https://app.codacy.com/manual/saurabhofficial/DeadLines?utm_source=github.com&utm_medium=referral&utm_content=LuGO0/DeadLines&utm_campaign=Badge_Grade_Dashboard) [![Build Status](https://travis-ci.com/LuGO0/DeadLines.svg?branch=master)](https://travis-ci.com/LuGO0/DeadLines)
 
 ## Operating System Course Project
 
