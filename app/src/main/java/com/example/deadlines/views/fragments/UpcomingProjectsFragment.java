@@ -1,4 +1,4 @@
-package com.example.deadlines.views.Fragments;
+package com.example.deadlines.views.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,7 +36,7 @@ public class UpcomingProjectsFragment extends Fragment {
     private DeadlinesViewModel deadlinesViewModel;
 
     //Data Scraping
-    public class getWebText extends AsyncTask<Void,Void,ArrayList<ProjectDeadline>>
+    public class GetWebTextDST extends AsyncTask<Void,Void,ArrayList<ProjectDeadline>>
     {
 
         String words;
@@ -81,7 +81,7 @@ public class UpcomingProjectsFragment extends Fragment {
         }
     }
 
-    public class getWebText1 extends AsyncTask<Void,Void,ArrayList<ProjectDeadline>> {
+    public class GetWebTextDBT extends AsyncTask<Void,Void,ArrayList<ProjectDeadline>> {
         String words;
         ArrayList<String> newData = new ArrayList<>();
         ArrayList<ProjectDeadline> dummyProjectDeadlineData = new ArrayList<ProjectDeadline>(5);
@@ -137,8 +137,8 @@ public class UpcomingProjectsFragment extends Fragment {
         ArrayList<ProjectDeadline> dummyProjectDeadlineData =new ArrayList<ProjectDeadline>();
         ArrayList<ProjectDeadline> extra=new ArrayList<ProjectDeadline>();
         try {
-            dummyProjectDeadlineData =new getWebText().execute().get();
-            extra=new getWebText1().execute().get();
+            dummyProjectDeadlineData =new GetWebTextDST().execute().get();
+            extra=new GetWebTextDBT().execute().get();
             for(int i=0;i<extra.size();i++)
             {
                 dummyProjectDeadlineData.add(extra.get(i));

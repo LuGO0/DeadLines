@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ProjectDeadlineAdapter extends RecyclerView.Adapter<ProjectDeadlineAdapter.ProjectDeadlineHolder> {
     private List<ProjectDeadline> mDeadlines = new ArrayList<>();
-    private onItemClickListener listener;
+    private OnItemClickListener listener;
 
     public ProjectDeadlineAdapter(List<ProjectDeadline> deadlines) {
         mDeadlines = deadlines;
@@ -75,11 +75,11 @@ public class ProjectDeadlineAdapter extends RecyclerView.Adapter<ProjectDeadline
         }
     }
 
-    public interface onItemClickListener {
+    public interface OnItemClickListener {
         void onItemClick(ProjectDeadline deadline);
     }
 
-    public void setOnItemClickListener(onItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
 
         this.listener = listener;
     }

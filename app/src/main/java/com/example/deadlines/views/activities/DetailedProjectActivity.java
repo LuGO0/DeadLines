@@ -1,4 +1,4 @@
-package com.example.deadlines.views.Activities;
+package com.example.deadlines.views.activities;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;

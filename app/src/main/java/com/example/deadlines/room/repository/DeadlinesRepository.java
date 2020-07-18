@@ -32,19 +32,19 @@ public class DeadlinesRepository {
 
     //inserting query
     public void insert(ProjectDeadline deadline) {
-        new insertAsyncTask(mDeadlinesDao).execute(deadline);
+        new InsertAsyncTask(mDeadlinesDao).execute(deadline);
     }
 
     //deleteAll query
     public void deleteAll() {
-        new deleteAllDeadlinesAsyncTask(mDeadlinesDao).execute();
+        new DeleteAllDeadlinesAsyncTask(mDeadlinesDao).execute();
     }
 
     // insertAsyncTask for inserting query to run in the background thread!!
-    private static class insertAsyncTask extends AsyncTask<ProjectDeadline, Void, Void> {
+    private static class InsertAsyncTask extends AsyncTask<ProjectDeadline, Void, Void> {
         private DeadlinesDao mAsyncTaskDao;
 
-        insertAsyncTask(DeadlinesDao dao) {
+        InsertAsyncTask(DeadlinesDao dao) {
             mAsyncTaskDao = dao;
         }
 
@@ -55,10 +55,10 @@ public class DeadlinesRepository {
         }
     }
 
-    private static class deleteAllDeadlinesAsyncTask extends AsyncTask<Void, Void, Void> {
+    private static class DeleteAllDeadlinesAsyncTask extends AsyncTask<Void, Void, Void> {
         private DeadlinesDao mAsyncTaskDao;
 
-        deleteAllDeadlinesAsyncTask(DeadlinesDao dao) {
+        DeleteAllDeadlinesAsyncTask(DeadlinesDao dao) {
             mAsyncTaskDao = dao;
         }
 
@@ -69,10 +69,10 @@ public class DeadlinesRepository {
         }
     }
 
-    private static class deleteDeadlineAsyncTask extends AsyncTask<ProjectDeadline, Void, Void> {
+    private static class DeleteDeadlineAsyncTask extends AsyncTask<ProjectDeadline, Void, Void> {
         private DeadlinesDao mAsyncTaskDao;
 
-        deleteDeadlineAsyncTask(DeadlinesDao dao) {
+        DeleteDeadlineAsyncTask(DeadlinesDao dao) {
             mAsyncTaskDao = dao;
         }
 

@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.deadlines.views.Fragments.CurrentProjectsFragment;
-import com.example.deadlines.views.Fragments.UpcomingProjectsFragment;
+import com.example.deadlines.views.fragments.CurrentProjectsFragment;
+import com.example.deadlines.views.fragments.UpcomingProjectsFragment;
 
 public class ProjectListFragmentPagerAdapter extends FragmentPagerAdapter {
     public ProjectListFragmentPagerAdapter(FragmentManager fm) {

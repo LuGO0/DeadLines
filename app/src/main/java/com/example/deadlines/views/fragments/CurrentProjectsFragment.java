@@ -1,4 +1,4 @@
-package com.example.deadlines.views.Fragments;
+package com.example.deadlines.views.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,7 +36,7 @@ public class CurrentProjectsFragment extends Fragment {
     private DeadlinesViewModel deadlinesViewModel;
 
     //Data Scraping
-    public class getWebText extends AsyncTask<Void, Void, ArrayList<ProjectDeadline>> {
+    public class getWebTextDST extends AsyncTask<Void, Void, ArrayList<ProjectDeadline>> {
         String words;
         ArrayList<String> newData = new ArrayList<>();
         ArrayList<ProjectDeadline> dummyProjectDeadlineData = new ArrayList<ProjectDeadline>();
@@ -50,10 +50,14 @@ public class CurrentProjectsFragment extends Fragment {
 
                 String s = "";
                 Document doc = Jsoup.connect("https://dst.gov.in/call-for-proposals").get();
-                Element table = doc.select("table").get(0); //select the first table.
+
+                //select the first table.
+                Element table = doc.select("table").get(0);
+
                 Elements rows = table.select("tr");
 
-                for (int i = 1; i < rows.size(); i++) { //first row is the col names so skip it.
+                //first row is the col names so skip it.
+                for (int i = 1; i < rows.size(); i++) {
                     Element row = rows.get(i);
                     Elements cols = row.select("td");
                     Elements links=cols.select("a");
@@ -78,8 +82,8 @@ public class CurrentProjectsFragment extends Fragment {
         }
     }
 
-    public class getWebText1 extends AsyncTask<Void, Void, ArrayList<ProjectDeadline>> {
-        String words;
+    public class GetWebTextDBT extends AsyncTask<Void, Void, ArrayList<ProjectDeadline>> {
+        private String words;
         ArrayList<String> newData = new ArrayList<>();
         ArrayList<ProjectDeadline> dummyProjectDeadlineData = new ArrayList<ProjectDeadline>(5);
 
@@ -138,8 +142,8 @@ public class CurrentProjectsFragment extends Fragment {
         ArrayList<ProjectDeadline> extra;
 
         try {
-            projectDeadlineData =new getWebText().execute().get();
-            extra=new getWebText1().execute().get();
+            projectDeadlineData =new getWebTextDST().execute().get();
+            extra=new GetWebTextDBT().execute().get();
             for(int i=0;i<extra.size();i++)
             {
                 projectDeadlineData.add(extra.get(i));
@@ -167,8 +171,7 @@ public class CurrentProjectsFragment extends Fragment {
 
             }
         });
-
-        //setting up onClicklistener for listViewItem
+//
 //        projectListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -213,7 +216,7 @@ public class CurrentProjectsFragment extends Fragment {
 //            }
 //
 //        });
-
+//
         return view;
     }
 

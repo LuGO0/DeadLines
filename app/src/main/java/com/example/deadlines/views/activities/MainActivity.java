@@ -1,4 +1,4 @@
-package com.example.deadlines.views.Activities;
+package com.example.deadlines.views.activities;
 
 import android.content.Intent;
 
@@ -40,10 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     public static final String ANONYMOUS = "anonymous";
     public static final int RC_SIGN_IN = 1;
-    //..
-    private String mUsername;
-    // Firebase instance variables
-    private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessagesDatabaseReference;
     private ChildEventListener mChildEventListener;
     private FirebaseAuth mFirebaseAuth;
@@ -94,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
         setupDrawerLayout();
 
         // Initialize Firebase components
-        mUsername = ANONYMOUS;
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        // Firebase instance variables
+        FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -124,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onSignedInInitialize(String username) {
-        mUsername = username;
         mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         //TODO setup firebase email verification check
@@ -134,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onSignedOutCleanup() {
-        mUsername = ANONYMOUS;
     }
 
     @Override
