@@ -1,22 +1,24 @@
-package com.example.deadlines.Repositories;
+package com.example.deadlines.room.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.deadlines.models.ProjectDeadline;
+import com.example.deadlines.room.appDatabase.DeadlinesRoomDatabase;
+import com.example.deadlines.room.models.ProjectDeadline;
+import com.example.deadlines.room.dao.DeadlinesDao;
 
 import java.util.List;
 
 public class DeadlinesRepository {
-
     private DeadlinesDao mDeadlinesDao;
     private LiveData<List<ProjectDeadline>> mAllDeadlines;
 
-
-    //constructor intializing the member variables and
-    // getting a handle to the database
+    /**
+     * constructor initializing the member variables and
+     * getting a handle to the database
+     */
     public DeadlinesRepository(Application application) {
         DeadlinesRoomDatabase db = DeadlinesRoomDatabase.getDatabase(application);
         mDeadlinesDao = db.deadlinesDao();
@@ -29,19 +31,17 @@ public class DeadlinesRepository {
     }
 
     //inserting query
-    public void insert (ProjectDeadline deadline) {
+    public void insert(ProjectDeadline deadline) {
         new insertAsyncTask(mDeadlinesDao).execute(deadline);
     }
 
     //deleteAll query
-    public void deleteAll()  {
+    public void deleteAll() {
         new deleteAllDeadlinesAsyncTask(mDeadlinesDao).execute();
     }
 
-
     // insertAsyncTask for inserting query to run in the background thread!!
     private static class insertAsyncTask extends AsyncTask<ProjectDeadline, Void, Void> {
-
         private DeadlinesDao mAsyncTaskDao;
 
         insertAsyncTask(DeadlinesDao dao) {
@@ -69,7 +69,6 @@ public class DeadlinesRepository {
         }
     }
 
-    //deleting a single deadline async task
     private static class deleteDeadlineAsyncTask extends AsyncTask<ProjectDeadline, Void, Void> {
         private DeadlinesDao mAsyncTaskDao;
 
@@ -83,6 +82,4 @@ public class DeadlinesRepository {
             return null;
         }
     }
-
-
 }

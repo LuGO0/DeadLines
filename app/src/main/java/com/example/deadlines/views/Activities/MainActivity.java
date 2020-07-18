@@ -1,15 +1,19 @@
-package com.example.deadlines.Views.Activities;
+package com.example.deadlines.views.Activities;
 
 import android.content.Intent;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,17 +27,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-
-
-import com.example.deadlines.Views.Adapters.ProjectListFragmentPagerAdapter;
+import com.example.deadlines.adapters.ProjectListFragmentPagerAdapter;
 import com.example.deadlines.R;
 
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
-
-
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private NavigationView mNavigationView;
@@ -41,11 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     public static final String ANONYMOUS = "anonymous";
     public static final int RC_SIGN_IN = 1;
-
-
     //..
     private String mUsername;
-
     // Firebase instance variables
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessagesDatabaseReference;
@@ -55,11 +51,10 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private TextView usernameView;
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater=getMenuInflater();
-        menuInflater.inflate(R.menu.main_activity_menu,menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main_activity_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -67,15 +62,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
-        if(item.getItemId()==R.id.about_us)
-        {
-            Intent intent=new Intent(MainActivity.this, CreditsActivity.class);
+        if (item.getItemId() == R.id.about_us) {
+            Intent intent = new Intent(MainActivity.this, CreditsActivity.class);
             startActivity(intent);
             return true;
         }
 
-        if(mActionBarDrawerToggle.onOptionsItemSelected(item)) {
-                return true;
+        if (mActionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
         }
 
         return false;
@@ -86,19 +80,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
-        PagerAdapter pagerAdapter= new ProjectListFragmentPagerAdapter(getSupportFragmentManager());
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        PagerAdapter pagerAdapter = new ProjectListFragmentPagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(pagerAdapter);
 
-        TabLayout tabLayout=(TabLayout)findViewById(R.id.tab_layout);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
 
-        mActionBar=getSupportActionBar();
+        mActionBar = getSupportActionBar();
 
         //navigation drawer setup
         setupDrawerLayout();
-
 
         // Initialize Firebase components
         mUsername = ANONYMOUS;
@@ -116,41 +109,32 @@ public class MainActivity extends AppCompatActivity {
                     // User is signed out
                     onSignedOutCleanup();
                     startActivityForResult(
-                            AuthUI.getInstance()
-                                    .createSignInIntentBuilder()
-                                    .setIsSmartLockEnabled(false)
-                                    .setAvailableProviders(Arrays.asList(
-                                            new AuthUI.IdpConfig.EmailBuilder().build(),
-                                            new AuthUI.IdpConfig.GoogleBuilder().build()
-                                           ))
-                                    .build(),
-                            RC_SIGN_IN);
+                        AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setIsSmartLockEnabled(false)
+                            .setAvailableProviders(Arrays.asList(
+                                new AuthUI.IdpConfig.EmailBuilder().build(),
+                                new AuthUI.IdpConfig.GoogleBuilder().build()
+                            ))
+                            .build(),
+                        RC_SIGN_IN);
                 }
             }
         };
-
-
     }
 
     private void onSignedInInitialize(String username) {
         mUsername = username;
-        mFirebaseUser=FirebaseAuth.getInstance().getCurrentUser();
-//        if(mFirebaseUser.isEmailVerified())
-//        {
-//
-//        }
-//        else
-//        {
-//
-            mFirebaseUser.sendEmailVerification();
-//        }
-        //attachDatabaseReadListener();
+        mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        //TODO setup firebase email verification check
+
+
+        mFirebaseUser.sendEmailVerification();
     }
 
     private void onSignedOutCleanup() {
         mUsername = ANONYMOUS;
-        //mMessageAdapter.clear();
-        //detachDatabaseReadListener();
     }
 
     @Override
@@ -168,13 +152,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
-
 
     @Override
     protected void onPause() {
@@ -182,17 +164,12 @@ public class MainActivity extends AppCompatActivity {
         if (mAuthStateListener != null) {
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
-    //        mMessageAdapter.clear();
-      //  detachDatabaseReadListener();
     }
 
-    void setupDrawerLayout()
-    {
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.navigation_drawer);
+    void setupDrawerLayout() {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer);
 
-
-        mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.string.open, R.string.close)
-        {
+        mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close) {
             @Override
             public void onDrawerStateChanged(int newState) {
 
@@ -204,9 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if (newState == DrawerLayout.STATE_IDLE) {
                         restoreActionBar();
-                    }
-
-                    else {
+                    } else {
                         overrideActionBar();
                     }
                 }
@@ -224,30 +199,28 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-
         mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
         mActionBarDrawerToggle.syncState();
 
         mActionBar.setDisplayHomeAsUpEnabled(true);
 
-        mNavigationView = (NavigationView)findViewById(R.id.navigation_drawer_menu);
+        mNavigationView = (NavigationView) findViewById(R.id.navigation_drawer_menu);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                switch(id)
-                {
+                switch (id) {
 
                     case R.id.schemes_item:
-                        Toast.makeText(MainActivity.this, "SCHEMES",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "SCHEMES", Toast.LENGTH_SHORT).show();
                         break;
 
                     case R.id.scholarship_item:
-                        Toast.makeText(MainActivity.this, "SCHOLARSHIP",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "SCHOLARSHIP", Toast.LENGTH_SHORT).show();
                         break;
 
                     case R.id.research_proposal_item:
-                        Toast.makeText(MainActivity.this, "RESEARCH PROPOSALS",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "RESEARCH PROPOSALS", Toast.LENGTH_SHORT).show();
                         break;
 
                     case R.id.profile_item:
@@ -256,7 +229,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.signOut_item:
-                        AuthUI.getInstance().signOut(MainActivity.this);break;
+                        AuthUI.getInstance().signOut(MainActivity.this);
+                        break;
 
                     default:
                         return true;
@@ -265,10 +239,5 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        //usernameView=(TextView)findViewById(R.id.username_token);
-        //usernameView.setText(mUsername);
-
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.example.deadlines.Repositories;
+package com.example.deadlines.room.appDatabase;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,23 +9,18 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.deadlines.models.ProjectDeadline;
+import com.example.deadlines.room.dao.DeadlinesDao;
+import com.example.deadlines.room.models.ProjectDeadline;
 
-@Database(entities = {ProjectDeadline.class},version=1,exportSchema=false)
+@Database(entities = {ProjectDeadline.class}, version = 1, exportSchema = false)
 public abstract class DeadlinesRoomDatabase extends RoomDatabase {
-    public abstract DeadlinesDao deadlinesDao();
 
+    public abstract DeadlinesDao deadlinesDao();
     private DeadlinesDao mDao;
-    //this whole code makes sure that the WordRoomDatabase is singleton
-    // since there is a synchronised call to the databasebuilder function
     private static DeadlinesRoomDatabase INSTANCE;
 
-    static DeadlinesRoomDatabase getDatabase(final Context context) {
+    public static DeadlinesRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-
-            //usually we pass in an instance inside the synchronised call
-            // or we make a method synchronised so that we can call that method using a single thread
-            // we can do this also since only 1 class object in java VM per class
             synchronized (DeadlinesRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
@@ -38,10 +33,9 @@ public abstract class DeadlinesRoomDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-
-    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback(){
+    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
         @Override
-        public void onOpen (@NonNull SupportSQLiteDatabase db){
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
 
             // this line deletes the data when the app restarts
