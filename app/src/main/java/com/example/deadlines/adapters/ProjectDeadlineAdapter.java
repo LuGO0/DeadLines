@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectDeadlineAdapter extends RecyclerView.Adapter<ProjectDeadlineAdapter.ProjectDeadlineHolder> {
-    private List<ProjectDeadline> mDeadlines = new ArrayList<>();
     private OnItemClickListener listener;
+    private List<ProjectDeadline> mDeadlines = new ArrayList<>();
 
     public ProjectDeadlineAdapter(List<ProjectDeadline> deadlines) {
         mDeadlines = deadlines;
@@ -52,10 +52,19 @@ public class ProjectDeadlineAdapter extends RecyclerView.Adapter<ProjectDeadline
         notifyDataSetChanged();
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(ProjectDeadline deadline);
+    }
+
     class ProjectDeadlineHolder extends RecyclerView.ViewHolder {
-        private TextView sourceWebsiteView;
-        private TextView deadlineTitleView;
         private TextView deadlineDateView;
+        private TextView deadlineTitleView;
+        private TextView sourceWebsiteView;
 
         public ProjectDeadlineHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,14 +82,5 @@ public class ProjectDeadlineAdapter extends RecyclerView.Adapter<ProjectDeadline
                 }
             });
         }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(ProjectDeadline deadline);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-
-        this.listener = listener;
     }
 }
