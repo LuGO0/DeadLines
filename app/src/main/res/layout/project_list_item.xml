@@ -8,32 +8,33 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="3">
+        android:layout_weight="3"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/source_website"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8sp"
-            tools:text="ERPC"/>
+            tools:text="ERPC" />
+
         <TextView
             android:id="@+id/project_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8sp"
             android:textSize="18sp"
-            tools:text="Project Title 1"/>
+            tools:text="Project Title 1" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/deadline_date"
-        android:layout_weight="1.5"
         android:layout_width="0dp"
-        android:padding="8sp"
-        android:maxLines="1"
-        android:layout_gravity="center"
         android:layout_height="wrap_content"
-        tools:text="21st Aug,2020"/>
+        android:layout_gravity="center"
+        android:layout_weight="1.5"
+        android:maxLines="1"
+        android:padding="8sp"
+        tools:text="21st Aug,2020" />
 
 </LinearLayout>

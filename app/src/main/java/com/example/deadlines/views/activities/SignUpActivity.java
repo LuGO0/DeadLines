@@ -2,23 +2,12 @@ package com.example.deadlines.views.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.deadlines.R;
-import com.example.deadlines.adapters.ProjectListFragmentPagerAdapter;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -29,7 +18,6 @@ import static com.example.deadlines.utils.ApplicationsConstants.RC_SIGN_IN;
 public class SignUpActivity extends BaseActivity {
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
@@ -45,7 +33,7 @@ public class SignUpActivity extends BaseActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    onSignedInInitialize(user.getDisplayName());
+                    onSignedInInitialize();
                 } else {
                     // User is signed out
                     onSignedOutCleanup();
@@ -64,8 +52,8 @@ public class SignUpActivity extends BaseActivity {
         };
     }
 
-    private void onSignedInInitialize(String username) {
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    private void onSignedInInitialize() {
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         if (!FirebaseAuth.getInstance().getCurrentUser().isEmailVerified())
             firebaseUser.sendEmailVerification();
@@ -75,6 +63,7 @@ public class SignUpActivity extends BaseActivity {
     }
 
     private void onSignedOutCleanup() {
+        // left blank for now
     }
 
     @Override

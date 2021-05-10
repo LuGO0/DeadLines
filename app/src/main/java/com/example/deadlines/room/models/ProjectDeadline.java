@@ -28,31 +28,31 @@ public class ProjectDeadline {
         return projectTitle;
     }
 
+    public void setProjectTitle(String projectTitle) {
+        this.projectTitle = projectTitle;
+    }
+
     public String getRedirectingUrl() {
         return redirectingUrl;
+    }
+
+    public void setRedirectingUrl(@NonNull String redirectingUrl) {
+        this.redirectingUrl = redirectingUrl;
     }
 
     public String getSourceWebsite() {
         return sourceWebsite;
     }
 
-    public String getDeadlineDate() {
-        return deadlineDate;
-    }
-
-    public void setProjectTitle(String projectTitle) {
-        this.projectTitle = projectTitle;
-    }
-
     public void setSourceWebsite(String sourceWebsite) {
         this.sourceWebsite = sourceWebsite;
     }
 
-    public void setDeadlineDate(String deadlineDate) {
-        this.deadlineDate = deadlineDate;
+    public String getDeadlineDate() {
+        return deadlineDate;
     }
 
-    public void setRedirectingUrl(@NonNull String redirectingUrl) {
-        this.redirectingUrl = redirectingUrl;
+    public void setDeadlineDate(String deadlineDate) {
+        this.deadlineDate = deadlineDate;
     }
 }

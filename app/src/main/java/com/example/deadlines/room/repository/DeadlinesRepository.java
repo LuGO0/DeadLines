@@ -5,9 +5,9 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.deadlines.room.appDatabase.DeadlinesRoomDatabase;
-import com.example.deadlines.room.models.ProjectDeadline;
+import com.example.deadlines.room.appdatabase.DeadlinesRoomDatabase;
 import com.example.deadlines.room.dao.DeadlinesDao;
+import com.example.deadlines.room.models.ProjectDeadline;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -69,6 +69,59 @@ public class DeadlinesRepository {
         });
     }
 
+    private void scrapeDbt() {
+        try {
+
+            String s = "";
+            Document doc = Jsoup.connect("http://dbtindia.gov.in/whats-new/call-for-proposals").get();
+            Element table = doc.select("table").get(0); //select the first table.
+            Elements rows = table.select("tr");
+
+            for (int i = 1; i < rows.size(); i++) { //first row is the col names so skip it.
+                Element row = rows.get(i);
+
+                Elements cols = row.select("td");
+                Elements links = cols.select("a");
+
+                String dateString = cols.get(2).text().split(" ")[2];
+                int year = Integer.parseInt(dateString.substring(6, 10));
+                deadlinesDao.insert(new ProjectDeadline(cols.get(1).text(), "DBT", dateString, links.attr("href")));
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    private void scrapeDst() {
+        try {
+
+            String s = "";
+            Document doc = Jsoup.connect("https://dst.gov.in/call-for-proposals").get();
+            Element table = doc.select("table").get(0); //select the first table.
+            Elements rows = table.select("tr");
+
+            for (int i = 1; i < rows.size(); i++) {
+                //first row is the col names so skip it.
+                Element row = rows.get(i);
+
+                Elements cols = row.select("td");
+                Elements links = cols.select("a");
+
+                String dateString = cols.get(3).text();
+                int year = Integer.parseInt(dateString.substring(6, 10));
+
+                deadlinesDao.insert(new ProjectDeadline(cols.get(0).text(), "DST GOV/EPMS", cols.get(3).text(), "https://dst.gov.in" + links.attr("href")));
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     // insertAsyncTask for inserting query to run in the background thread!!
     private static class InsertAsyncTask extends AsyncTask<ProjectDeadline, Void, Void> {
         private DeadlinesDao mAsyncTaskDao;
@@ -109,58 +162,6 @@ public class DeadlinesRepository {
         protected Void doInBackground(final ProjectDeadline... params) {
             mAsyncTaskDao.deleteDeadline(params[0]);
             return null;
-        }
-    }
-
-    private void scrapeDbt() {
-        try {
-
-            String s = "";
-            Document doc = Jsoup.connect("http://dbtindia.gov.in/whats-new/call-for-proposals").get();
-            Element table = doc.select("table").get(0); //select the first table.
-            Elements rows = table.select("tr");
-
-            for (int i = 1; i < rows.size(); i++) { //first row is the col names so skip it.
-                Element row = rows.get(i);
-
-                Elements cols = row.select("td");
-                Elements links = cols.select("a");
-
-                String dateString = cols.get(2).text().split(" ")[2];
-                int year = Integer.parseInt(dateString.substring(6, 10));
-                deadlinesDao.insert(new ProjectDeadline(cols.get(1).text(), "DBT", dateString, links.attr("href")));
-
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-    }
-    private void scrapeDst() {
-        try {
-
-            String s = "";
-            Document doc = Jsoup.connect("https://dst.gov.in/call-for-proposals").get();
-            Element table = doc.select("table").get(0); //select the first table.
-            Elements rows = table.select("tr");
-
-            for (int i = 1; i < rows.size(); i++) {
-                //first row is the col names so skip it.
-                Element row = rows.get(i);
-
-                Elements cols = row.select("td");
-                Elements links = cols.select("a");
-
-                String dateString = cols.get(3).text();
-                int year = Integer.parseInt(dateString.substring(6, 10));
-
-                deadlinesDao.insert(new ProjectDeadline(cols.get(0).text(), "DST GOV/EPMS", cols.get(3).text(), "https://dst.gov.in" + links.attr("href")));
-
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

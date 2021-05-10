@@ -6,18 +6,19 @@
     tools:context=".views.fragments.UpcomingProjectsFragment">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:paddingLeft="8dp"
         android:paddingRight="8dp">
 
-        <androidx.recyclerview.widget.RecyclerView android:id="@+id/list"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawSelectorOnTop="false"
-            android:scrollbars="none"/>
+            android:scrollbars="none" />
     </RelativeLayout>
 
 </FrameLayout>
