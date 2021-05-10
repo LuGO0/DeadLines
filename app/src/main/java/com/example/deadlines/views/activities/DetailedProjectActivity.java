@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.deadlines.R;
 
-public class DetailedProjectActivity extends AppCompatActivity {
+public class DetailedProjectActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

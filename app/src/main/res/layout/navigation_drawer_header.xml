@@ -7,16 +7,7 @@
     android:background="@color/colorPrimaryDark">
     <ImageView
         android:layout_width="180dp"
-        android:layout_height="80dp"
+        android:layout_height="180dp"
         android:background="@color/colorPrimaryDark"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="5dp"
-        android:text="Hello !!"
-        android:textColor="#FFFFFF"
-        android:textSize="30dp" />
-
 </LinearLayout>

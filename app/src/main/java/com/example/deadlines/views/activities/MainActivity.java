@@ -12,7 +12,6 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,26 +25,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.example.deadlines.adapters.ProjectListFragmentPagerAdapter;
 import com.example.deadlines.R;
 
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity {
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mActionBarDrawerToggle;
-    private NavigationView mNavigationView;
-    private ActionBar mActionBar;
-    private static final String TAG = "MainActivity";
-    public static final String ANONYMOUS = "anonymous";
-    public static final int RC_SIGN_IN = 1;
-    private DatabaseReference mMessagesDatabaseReference;
-    private ChildEventListener mChildEventListener;
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
-    private TextView usernameView;
+public class MainActivity extends BaseActivity {
+
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private NavigationView navigationView;
+    private ActionBar actionBar;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -64,11 +54,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        if (mActionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return false;
+        return actionBarDrawerToggle.onOptionsItemSelected(item);
     }
 
     @Override
@@ -84,91 +70,21 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
 
-        mActionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
 
-        //navigation drawer setup
         setupDrawerLayout();
-
-        // Initialize Firebase components
-
-        mFirebaseAuth = FirebaseAuth.getInstance();
-
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    onSignedInInitialize(user.getDisplayName());
-                } else {
-                    // User is signed out
-                    onSignedOutCleanup();
-                    startActivityForResult(
-                        AuthUI.getInstance()
-                            .createSignInIntentBuilder()
-                            .setIsSmartLockEnabled(false)
-                            .setAvailableProviders(Arrays.asList(
-                                new AuthUI.IdpConfig.EmailBuilder().build(),
-                                new AuthUI.IdpConfig.GoogleBuilder().build()
-                            ))
-                            .build(),
-                        RC_SIGN_IN);
-                }
-            }
-        };
-    }
-
-    private void onSignedInInitialize(String username) {
-        mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        //TODO setup firebase email verification check
-
-
-        mFirebaseUser.sendEmailVerification();
-    }
-
-    private void onSignedOutCleanup() {
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
-            if (resultCode == RESULT_OK) {
-                // Sign-in succeeded, set up the UI
-                Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show();
-            } else if (resultCode == RESULT_CANCELED) {
-                // Sign in was canceled by the user, finish the activity
-                Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (mAuthStateListener != null) {
-            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
-        }
     }
 
     void setupDrawerLayout() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer);
+        drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer);
 
-        mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close) {
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close) {
             @Override
             public void onDrawerStateChanged(int newState) {
 
                 super.onDrawerStateChanged(newState);
-                boolean isOpened = mDrawerLayout.isDrawerOpen(mNavigationView);
-                boolean isVisible = mDrawerLayout.isDrawerVisible(mNavigationView);
+                boolean isOpened = drawerLayout.isDrawerOpen(navigationView);
+                boolean isVisible = drawerLayout.isDrawerVisible(navigationView);
 
                 if (!isOpened && !isVisible) {
 
@@ -182,23 +98,23 @@ public class MainActivity extends AppCompatActivity {
 
             private void restoreActionBar() {
                 getSupportActionBar().setTitle("DeadLines");
-                mActionBar.show();
+                actionBar.show();
                 supportInvalidateOptionsMenu();
             }
 
             private void overrideActionBar() {
-                mActionBar.hide();
+                actionBar.hide();
                 supportInvalidateOptionsMenu();
             }
         };
 
-        mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
-        mActionBarDrawerToggle.syncState();
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
 
-        mActionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
-        mNavigationView = (NavigationView) findViewById(R.id.navigation_drawer_menu);
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView = (NavigationView) findViewById(R.id.navigation_drawer_menu);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();

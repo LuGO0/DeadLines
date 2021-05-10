@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.example.deadlines.R;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
