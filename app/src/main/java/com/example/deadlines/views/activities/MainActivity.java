@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
+import com.example.deadlines.room.models.ProjectDeadline;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -27,6 +28,11 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.example.deadlines.adapters.ProjectListFragmentPagerAdapter;
 import com.example.deadlines.R;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.util.Arrays;
 
@@ -61,6 +67,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         PagerAdapter pagerAdapter = new ProjectListFragmentPagerAdapter(getSupportFragmentManager());

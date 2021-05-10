@@ -16,39 +16,41 @@ import java.util.List;
 
 public class ProjectDeadlineAdapter extends RecyclerView.Adapter<ProjectDeadlineAdapter.ProjectDeadlineHolder> {
     private OnItemClickListener listener;
-    private List<ProjectDeadline> mDeadlines = new ArrayList<>();
+    private List<ProjectDeadline> deadlines = new ArrayList<>();
 
     public ProjectDeadlineAdapter(List<ProjectDeadline> deadlines) {
-        mDeadlines = deadlines;
+
+        if (deadlines != null)
+            this.deadlines = deadlines;
     }
 
     @NonNull
     @Override
     public ProjectDeadlineHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.project_list_item, parent, false);
+                .inflate(R.layout.project_list_item, parent, false);
         return new ProjectDeadlineHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProjectDeadlineHolder holder, int position) {
-        ProjectDeadline currentNote = mDeadlines.get(position);
+        ProjectDeadline currentNote = deadlines.get(position);
         holder.sourceWebsiteView.setText(currentNote.getSourceWebsite());
         holder.deadlineTitleView.setText(String.valueOf(currentNote.getProjectTitle()));
         holder.deadlineDateView.setText(currentNote.getDeadlineDate());
     }
 
     public ProjectDeadline getNoteAt(int position) {
-        return mDeadlines.get(position);
+        return deadlines.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return mDeadlines.size();
+        return deadlines.size();
     }
 
     public void setNotes(List<ProjectDeadline> notes) {
-        this.mDeadlines = notes;
+        this.deadlines = notes;
         notifyDataSetChanged();
     }
 
@@ -77,7 +79,7 @@ public class ProjectDeadlineAdapter extends RecyclerView.Adapter<ProjectDeadline
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(mDeadlines.get(position));
+                        listener.onItemClick(deadlines.get(position));
                     }
                 }
             });

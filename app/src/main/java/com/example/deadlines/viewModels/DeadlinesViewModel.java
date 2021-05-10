@@ -17,10 +17,11 @@ public class DeadlinesViewModel extends AndroidViewModel {
     public DeadlinesViewModel(Application application) {
         super(application);
         deadlinesRepository = new DeadlinesRepository(application);
-        deadlines = deadlinesRepository.getAllDeadlines();
+        deadlines=deadlinesRepository.getAllDeadlines();
     }
 
-    public LiveData<List<ProjectDeadline>> get() {
+    public LiveData<List<ProjectDeadline>> getDeadlines() {
+        deadlines=deadlinesRepository.getAllDeadlines();
         return deadlines;
     }
 
@@ -31,4 +32,6 @@ public class DeadlinesViewModel extends AndroidViewModel {
     public void deleteAll() {
         deadlinesRepository.deleteAll();
     }
+
+
 }

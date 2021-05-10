@@ -13,8 +13,11 @@ import java.util.List;
 
 @Dao
 public interface DeadlinesDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(ProjectDeadline deadline);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertAllDeadlines(List<ProjectDeadline> deadlines);
 
     @Delete
     void deleteDeadline(ProjectDeadline deadline);

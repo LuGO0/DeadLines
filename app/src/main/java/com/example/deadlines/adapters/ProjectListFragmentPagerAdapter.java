@@ -38,6 +38,6 @@ public class ProjectListFragmentPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return "UPCOMING";
         }
-        return "    -----";
+        return "NA";
     }
 }
