@@ -1,4 +1,4 @@
-package com.example.deadlines.models;
+package com.example.deadlines.room.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -7,29 +7,24 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "deadlines_table")
 public class ProjectDeadline {
-
     @ColumnInfo
     private String projectTitle;
-
     @ColumnInfo
     private String sourceWebsite;
-
     @ColumnInfo
     private String deadlineDate;
-
     @PrimaryKey
     @NonNull
     private String redirectingUrl;
-
 
     public ProjectDeadline(String projectTitle, String sourceWebsite, String deadlineDate, String redirectingUrl) {
         this.projectTitle = projectTitle;
         this.sourceWebsite = sourceWebsite;
         this.deadlineDate = deadlineDate;
-        this.redirectingUrl=redirectingUrl;
+        this.redirectingUrl = redirectingUrl;
     }
 
-    /*
+    /**
      * getter methods
      */
     public String getProjectTitle() {
@@ -48,7 +43,7 @@ public class ProjectDeadline {
         return deadlineDate;
     }
 
-    /*
+    /**
      * setter methods
      */
     public void setProjectTitle(String projectTitle) {
@@ -66,6 +61,4 @@ public class ProjectDeadline {
     public void setRedirectingUrl(@NonNull String redirectingUrl) {
         this.redirectingUrl = redirectingUrl;
     }
-
-
 }
