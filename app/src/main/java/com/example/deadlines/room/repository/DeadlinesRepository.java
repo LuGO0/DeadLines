@@ -54,12 +54,7 @@ public class DeadlinesRepository {
     }
 
     public void scrapeDeadlines() {
-        String words;
-        ArrayList<String> newData = new ArrayList<>();
-        ArrayList<ProjectDeadline> dummyProjectDeadlineData = new ArrayList<ProjectDeadline>();
-
         ExecutorService executorService = Executors.newFixedThreadPool(CUSTOM_THREAD_POOL_SIZE);
-
         executorService.execute(new Runnable() {
             @Override
             public void run() {
@@ -72,7 +67,6 @@ public class DeadlinesRepository {
     private void scrapeDbt() {
         try {
 
-            String s = "";
             Document doc = Jsoup.connect("http://dbtindia.gov.in/whats-new/call-for-proposals").get();
             Element table = doc.select("table").get(0); //select the first table.
             Elements rows = table.select("tr");
@@ -84,7 +78,6 @@ public class DeadlinesRepository {
                 Elements links = cols.select("a");
 
                 String dateString = cols.get(2).text().split(" ")[2];
-                int year = Integer.parseInt(dateString.substring(6, 10));
                 deadlinesDao.insert(new ProjectDeadline(cols.get(1).text(), "DBT", dateString, links.attr("href")));
 
             }
@@ -98,7 +91,6 @@ public class DeadlinesRepository {
     private void scrapeDst() {
         try {
 
-            String s = "";
             Document doc = Jsoup.connect("https://dst.gov.in/call-for-proposals").get();
             Element table = doc.select("table").get(0); //select the first table.
             Elements rows = table.select("tr");
@@ -109,10 +101,6 @@ public class DeadlinesRepository {
 
                 Elements cols = row.select("td");
                 Elements links = cols.select("a");
-
-                String dateString = cols.get(3).text();
-                int year = Integer.parseInt(dateString.substring(6, 10));
-
                 deadlinesDao.insert(new ProjectDeadline(cols.get(0).text(), "DST GOV/EPMS", cols.get(3).text(), "https://dst.gov.in" + links.attr("href")));
 
             }
