@@ -11,24 +11,24 @@ import com.example.deadlines.room.models.ProjectDeadline;
 import java.util.List;
 
 public class DeadlinesViewModel extends AndroidViewModel {
-    private DeadlinesRepository mRepository;
-    private LiveData<List<ProjectDeadline>> mAllDeadlines;
+    private DeadlinesRepository deadlinesRepository;
+    private LiveData<List<ProjectDeadline>> deadlines;
 
     public DeadlinesViewModel(Application application) {
         super(application);
-        mRepository = new DeadlinesRepository(application);
-        mAllDeadlines = mRepository.getAllDeadlines();
+        deadlinesRepository = new DeadlinesRepository(application);
+        deadlines = deadlinesRepository.getAllDeadlines();
     }
 
     public LiveData<List<ProjectDeadline>> get() {
-        return mAllDeadlines;
+        return deadlines;
     }
 
     public void insert(ProjectDeadline deadline) {
-        mRepository.insert(deadline);
+        deadlinesRepository.insert(deadline);
     }
 
     public void deleteAll() {
-        mRepository.deleteAll();
+        deadlinesRepository.deleteAll();
     }
 }

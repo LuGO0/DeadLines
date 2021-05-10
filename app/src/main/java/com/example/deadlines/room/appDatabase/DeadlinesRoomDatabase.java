@@ -15,7 +15,7 @@ import com.example.deadlines.room.models.ProjectDeadline;
 @Database(entities = {ProjectDeadline.class}, version = 1, exportSchema = false)
 public abstract class DeadlinesRoomDatabase extends RoomDatabase {
 
-    private DeadlinesDao mDao;
+    private DeadlinesDao deadlinesDao;
     private static DeadlinesRoomDatabase INSTANCE;
     public abstract DeadlinesDao deadlinesDao();
 

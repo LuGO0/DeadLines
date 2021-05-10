@@ -24,9 +24,6 @@ public class ProjectDeadline {
         this.redirectingUrl = redirectingUrl;
     }
 
-    /**
-     * getter methods
-     */
     public String getProjectTitle() {
         return projectTitle;
     }
@@ -43,9 +40,6 @@ public class ProjectDeadline {
         return deadlineDate;
     }
 
-    /**
-     * setter methods
-     */
     public void setProjectTitle(String projectTitle) {
         this.projectTitle = projectTitle;
     }

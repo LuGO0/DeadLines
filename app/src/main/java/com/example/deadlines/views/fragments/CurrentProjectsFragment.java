@@ -35,7 +35,6 @@ public class CurrentProjectsFragment extends Fragment {
 
     private DeadlinesViewModel deadlinesViewModel;
 
-    //Data Scraping
     public class getWebTextDST extends AsyncTask<Void, Void, ArrayList<ProjectDeadline>> {
         String words;
         ArrayList<String> newData = new ArrayList<>();
@@ -51,12 +50,10 @@ public class CurrentProjectsFragment extends Fragment {
                 String s = "";
                 Document doc = Jsoup.connect("https://dst.gov.in/call-for-proposals").get();
 
-                //select the first table.
                 Element table = doc.select("table").get(0);
 
                 Elements rows = table.select("tr");
 
-                //first row is the col names so skip it.
                 for (int i = 1; i < rows.size(); i++) {
                     Element row = rows.get(i);
                     Elements cols = row.select("td");
@@ -137,7 +134,7 @@ public class CurrentProjectsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_current_projects, container, false);
         deadlinesViewModel= ViewModelProviders.of(this).get(DeadlinesViewModel.class);
-        //dummy data for now
+
         ArrayList<ProjectDeadline> projectDeadlineData =new ArrayList<ProjectDeadline>();
         ArrayList<ProjectDeadline> extra;
 
@@ -167,56 +164,9 @@ public class CurrentProjectsFragment extends Fragment {
             @Override
             public void onChanged(List<ProjectDeadline> projectDeadlines) {
                 adapter.setNotes(projectDeadlines);
-                Log.i("Yo",projectDeadlines.toString());
-
             }
         });
-//
-//        projectListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                final ProjectDeadline currentProjectDeadline =adapter.getItem(i);
-//
-//
-//                if (currentProjectDeadline.getSourceWebsite().equalsIgnoreCase("DBT"))
-//                {
-//
-//                    AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-//                    builder.setTitle("You are being redirected to DBT download page").setMessage("Do you want to download").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            Intent viewIntent=new Intent(getActivity(), DetailedProjectActivity.class);
-//                            viewIntent =
-//                                    new Intent("android.intent.action.VIEW",
-//                                            Uri.parse(currentProjectDeadline.getRedirectingUrl()));
-//                            startActivity(viewIntent);
-//                        }
-//                    }).setNegativeButton("No",null);
-//                    AlertDialog alert=builder.create();
-//                    alert.show();
-//
-//
-//                }
-//                else {
-//                    AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-//                    builder.setTitle("You are being redirected to DST proposal site").setMessage("Do you want to proceed").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            Intent viewIntent=new Intent(getActivity(), DetailedProjectActivity.class);
-//                            viewIntent =
-//                                    new Intent("android.intent.action.VIEW",
-//                                            Uri.parse(currentProjectDeadline.getRedirectingUrl()));
-//                            startActivity(viewIntent);
-//                        }
-//                    }).setNegativeButton("No",null);
-//                    AlertDialog alert=builder.create();
-//                    alert.show();
-//
-//                }
-//            }
-//
-//        });
-//
+
         return view;
     }
 

@@ -35,13 +35,12 @@ public class UpcomingProjectsFragment extends Fragment {
 
     private DeadlinesViewModel deadlinesViewModel;
 
-    //Data Scraping
     public class GetWebTextDST extends AsyncTask<Void,Void,ArrayList<ProjectDeadline>>
     {
 
         String words;
         ArrayList<String> newData = new ArrayList<>();
-        ArrayList<ProjectDeadline> dummyProjectDeadlineData =new ArrayList<ProjectDeadline>(5);
+        ArrayList<ProjectDeadline> projectDeadlineData =new ArrayList<ProjectDeadline>(5);
 
 
         @Override
@@ -63,7 +62,6 @@ public class UpcomingProjectsFragment extends Fragment {
                     Elements links=cols.select("a");
 
                     String dateString = cols.get(3).text();
-                    Log.i("yp",Utils.getDatefromString(dateString).toString());
                     int year=Integer.parseInt(dateString.substring(6,10));
 
                     deadlinesViewModel.insert(new ProjectDeadline(cols.get(0).text(), "DST GOV/EPMS", cols.get(3).text(),"https://dst.gov.in"+links.attr("href")));
@@ -73,18 +71,16 @@ public class UpcomingProjectsFragment extends Fragment {
 
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (ParseException e) {
-                e.printStackTrace();
             }
 
-            return dummyProjectDeadlineData;
+            return projectDeadlineData;
         }
     }
 
     public class GetWebTextDBT extends AsyncTask<Void,Void,ArrayList<ProjectDeadline>> {
         String words;
         ArrayList<String> newData = new ArrayList<>();
-        ArrayList<ProjectDeadline> dummyProjectDeadlineData = new ArrayList<ProjectDeadline>(5);
+        ArrayList<ProjectDeadline> projectDeadlineData = new ArrayList<ProjectDeadline>(5);
 
         @Override
         protected ArrayList<ProjectDeadline> doInBackground(Void... voids) {
@@ -103,7 +99,6 @@ public class UpcomingProjectsFragment extends Fragment {
                     Elements links=cols.select("a");
 
                     String dateString=cols.get(2).text().split(" ")[2];
-                    Log.i("yp", Utils.getDatefromString(dateString).toString());
                     int year=Integer.parseInt(dateString.substring(6,10));
                     deadlinesViewModel.insert(new ProjectDeadline(cols.get(1).text(), "DBT", dateString,links.attr("href")));
 
@@ -117,7 +112,7 @@ public class UpcomingProjectsFragment extends Fragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-              return dummyProjectDeadlineData;
+              return projectDeadlineData;
         }
     }
     @Override
@@ -133,16 +128,13 @@ public class UpcomingProjectsFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_current_projects, container, false);
         deadlinesViewModel= ViewModelProviders.of(this).get(DeadlinesViewModel.class);
 
-        //dummy data for now
-        ArrayList<ProjectDeadline> dummyProjectDeadlineData =new ArrayList<ProjectDeadline>();
+        ArrayList<ProjectDeadline> projectDeadlineData =new ArrayList<ProjectDeadline>();
         ArrayList<ProjectDeadline> extra=new ArrayList<ProjectDeadline>();
         try {
-            dummyProjectDeadlineData =new GetWebTextDST().execute().get();
+            projectDeadlineData =new GetWebTextDST().execute().get();
             extra=new GetWebTextDBT().execute().get();
-            for(int i=0;i<extra.size();i++)
-            {
-                dummyProjectDeadlineData.add(extra.get(i));
-                Log.i("hey",dummyProjectDeadlineData.get(i).getProjectTitle());
+            for(int i=0;i<extra.size();i++) {
+                projectDeadlineData.add(extra.get(i));
             }
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -154,7 +146,7 @@ public class UpcomingProjectsFragment extends Fragment {
 
         final RecyclerView projectListView = (RecyclerView) view.findViewById(R.id.list);
 
-        final ProjectDeadlineAdapter adapter=new ProjectDeadlineAdapter(dummyProjectDeadlineData);
+        final ProjectDeadlineAdapter adapter=new ProjectDeadlineAdapter(projectDeadlineData);
 
         projectListView.setAdapter(adapter);
         projectListView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -163,64 +155,8 @@ public class UpcomingProjectsFragment extends Fragment {
             @Override
             public void onChanged(List<ProjectDeadline> projectDeadlines) {
                 adapter.setNotes(projectDeadlines);
-                Log.i("Yo",projectDeadlines.toString());
             }
         });
-
-       // setting up onClicklistener for listViewItem
-//        projectListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//                final ProjectDeadline currentProjectDeadline =adapter.getNoteAt(i);
-//
-//
-//                if (currentProjectDeadline.getSourceWebsite().equalsIgnoreCase("DBT"))
-//                {
-//
-//                    AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-//                    builder.setTitle("You are being redirected to DBT download page").setMessage("Do you want to download").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            Intent viewIntent=new Intent(getActivity(), DetailedProjectActivity.class);
-//                            viewIntent =
-//                                    new Intent("android.intent.action.VIEW",
-//                                            Uri.parse(currentProjectDeadline.getRedirectingUrl()));
-//                            startActivity(viewIntent);
-//                        }
-//                    }).setNegativeButton("No",null);
-//                    AlertDialog alert=builder.create();
-//                    alert.show();
-//
-//
-//                }
-//                else {
-//                    AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-//                    builder.setTitle("You are being redirected to DST proposal site").setMessage("Do you want to proceed").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            Intent viewIntent=new Intent(getActivity(), DetailedProjectActivity.class);
-//                            viewIntent =
-//                                    new Intent("android.intent.action.VIEW",
-//                                            Uri.parse(currentProjectDeadline.getRedirectingUrl()));
-//                            startActivity(viewIntent);
-//                        }
-//                    }).setNegativeButton("No",null);
-//                    AlertDialog alert=builder.create();
-//                    alert.show();
-//
-//                }
-//
-//               /* Bundle bundle=new Bundle();
-//                bundle.putInt("currentProjectListItemIndex",i);
-//                intent.putExtra("url","https://dst.gov.in/call-for-proposals/"+currentProject.getProjectTitle());
-//                intent.putExtras(bundle);
-//
-//                startActivity(intent);*/
-//
-//
-//            }
-//        });
 
         return view;
     }
