@@ -111,7 +111,7 @@ public class DeadlinesRepository {
             return null;
         }
     }
-    
+
     private void scrapeDbt() {
         try {
 

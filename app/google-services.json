@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "822664127747",
+    "project_id": "deadlines-88ec5",
+    "storage_bucket": "deadlines-88ec5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822664127747:android:0ed62c6e39d2caae64f536",
+        "android_client_info": {
+          "package_name": "com.example.deadlines"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822664127747-lemnm8mveoa9vcvjoppbkj91fmvujuqn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.deadlines",
+            "certificate_hash": "29f37681edbe0fad2d2e958d823d1983b047c115"
+          }
+        },
+        {
+          "client_id": "822664127747-lpu3k6fu7spipkop32grdp55f1ng56f6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjcMBBE2giWHju3pbuay6kGmA5cplkkUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822664127747-lpu3k6fu7spipkop32grdp55f1ng56f6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
