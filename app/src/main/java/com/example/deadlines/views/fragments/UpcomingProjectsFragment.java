@@ -109,10 +109,8 @@ public class UpcomingProjectsFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
 
-            } catch (ParseException e) {
-                e.printStackTrace();
             }
-              return projectDeadlineData;
+            return projectDeadlineData;
         }
     }
     @Override

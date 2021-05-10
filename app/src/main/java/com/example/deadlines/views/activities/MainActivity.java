@@ -90,8 +90,7 @@ public class MainActivity extends AppCompatActivity {
         setupDrawerLayout();
 
         // Initialize Firebase components
-        // Firebase instance variables
-        FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
+
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
